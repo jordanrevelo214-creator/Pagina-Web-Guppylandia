@@ -1,0 +1,126 @@
+---
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "GuppyLandia - Todo para tu acuario ideal" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={description} />
+		<title>{title} | GuppyLandia</title>
+		
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+		
+		<ClientRouter />
+	</head>
+	<body>
+		
+		<!-- NAVBAR -->
+		<header transition:persist>
+			<div class="container navbar">
+				<a href="/" class="logo">
+					<img src="/assets/logo.png" alt="GuppyLandia">
+					<h2>guppylandia</h2>
+				</a>
+
+				<nav class="nav-links">
+					<a href="/">Inicio</a>
+					<a href="/peces">Peces</a>
+					<a href="/plantas">Plantas</a>
+					<a href="#productos">Productos</a>
+					<a href="#ubicacion">Ubicación</a>
+					<a href="#contacto">Contacto</a>
+				</nav>
+
+				<div class="nav-icons">
+					<i class="fa-solid fa-magnifying-glass"></i>
+					<i class="fa-regular fa-user"></i>
+					<i class="fa-solid fa-cart-shopping"></i>
+					<button id="menu-toggle" class="menu-toggle">
+						<i class="fa-solid fa-bars"></i>
+					</button>
+				</div>
+			</div>
+
+			<!-- Menú Móvil -->
+			<div id="mobile-menu" class="mobile-menu">
+				<a href="/">Inicio</a>
+				<a href="/peces">Peces</a>
+				<a href="/plantas">Plantas</a>
+				<a href="#productos">Productos</a>
+				<a href="#ubicacion">Ubicación</a>
+				<a href="#contacto">Contacto</a>
+			</div>
+		</header>
+
+		<main>
+			<slot />
+		</main>
+
+		<!-- FOOTER -->
+		<footer id="contacto">
+			<div class="container">
+				<div class="footer-grid">
+					<div>
+						<div class="footer-logo">
+							<img src="/assets/logo.png" alt="GuppyLandia">
+							<h3>guppylandia</h3>
+						</div>
+						<p>Tienda especializada en acuarios plantados, peces, plantas naturales y accesorios premium.</p>
+						<div class="socials">
+							<a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+							<a href="#"><i class="fa-brands fa-instagram"></i></a>
+							<a href="#"><i class="fa-brands fa-tiktok"></i></a>
+							<a href="https://wa.me/593999999999" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+						</div>
+					</div>
+
+					<div class="footer-links">
+						<h4>Categorías</h4>
+						<a href="/peces">Peces</a>
+						<a href="/plantas">Plantas</a>
+						<a href="#">Abonos</a>
+						<a href="#">Equipos</a>
+					</div>
+
+					<div class="footer-links">
+						<h4>Información</h4>
+						<a href="#">Sobre nosotros</a>
+						<a href="#">Envíos</a>
+						<a href="#">Blog</a>
+						<a href="#contacto">Contacto</a>
+					</div>
+
+					<div class="footer-links">
+						<h4>Contacto</h4>
+						<a href="tel:+593999999999">+593 999 999 999</a>
+						<a href="mailto:guppylandia@gmail.com">guppylandia@gmail.com</a>
+						<a href="#ubicacion">Tulcán - Ecuador</a>
+					</div>
+				</div>
+
+				<div class="copyright">
+					© 2026 Guppylandia. Todos los derechos reservados.
+				</div>
+			</div>
+		</footer>
+
+		<script>
+			document.getElementById('menu-toggle')?.addEventListener('click', () => {
+				document.getElementById('mobile-menu')?.classList.toggle('active');
+			});
+		</script>
+	</body>
+</html>

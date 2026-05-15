@@ -1,0 +1,45 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+const peces = [
+    { nombre: "Guppy Cobra", precio: 3.50, stock: 15, descripcion: "Coloración vibrante con patrón cobra único.", imagen: "https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?q=80&w=600&auto=format&fit=crop" },
+    { nombre: "Betta Dragon Red", precio: 12.00, stock: 2, descripcion: "Ejemplar de exhibición con escamas dragón.", imagen: "https://images.unsplash.com/photo-1524704654690-b56c05c78a00?q=80&w=600&auto=format&fit=crop" },
+    { nombre: "Tetra Neón", precio: 1.50, stock: 50, descripcion: "El clásico cardumen brillante para cualquier acuario.", imagen: "https://images.unsplash.com/photo-1535591273668-578e31182c4f?q=80&w=600&auto=format&fit=crop" },
+    { nombre: "Corydora Albina", precio: 4.00, stock: 3, descripcion: "Limpiador de fondo pacífico y llamativo.", imagen: "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?q=80&w=600&auto=format&fit=crop" },
+];
+---
+
+<MainLayout title="Catálogo de Peces" description="Explora nuestra colección de peces exóticos en GuppyLandia, Tulcán.">
+
+    <!-- Header de Página -->
+    <section class="section" style="padding-bottom: 0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Catálogo de <span>Peces</span></h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grid de Productos -->
+    <section class="section">
+        <div class="container">
+            <div class="products">
+                {peces.map((pez) => (
+                    <div class="product-card">
+                        {pez.stock <= 3 ? (
+                            <div class="stock-badge stock-low">¡Quedan {pez.stock}!</div>
+                        ) : (
+                            <div class="stock-badge stock-ok">En stock</div>
+                        )}
+                        <img src={pez.imagen} alt={pez.nombre} style="object-fit: cover; border-radius: 20px;">
+                        <h4>{pez.nombre}</h4>
+                        <p style="color: #728697; margin-bottom: 12px; line-height: 1.6;">{pez.descripcion}</p>
+                        <div class="price">${pez.precio.toFixed(2)}</div>
+                        <button class="product-btn">Agregar al carrito</button>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+</MainLayout>

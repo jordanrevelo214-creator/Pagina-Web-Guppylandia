@@ -1,0 +1,178 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+// Datos de productos (luego vendrán de Cloudflare D1)
+const productosDestacados = [
+	{ nombre: "Betta Halfmoon", precio: 8.99, stock: 2, imagen: "https://cdn-icons-png.flaticon.com/512/616/616408.png" },
+	{ nombre: "Anubia Nana", precio: 5.99, stock: 15, imagen: "https://cdn-icons-png.flaticon.com/512/427/427735.png" },
+	{ nombre: "Filtro Interno", precio: 24.99, stock: 8, imagen: "https://cdn-icons-png.flaticon.com/512/1046/1046857.png" },
+	{ nombre: "Acondicionador", precio: 4.99, stock: 3, imagen: "https://cdn-icons-png.flaticon.com/512/2909/2909761.png" },
+];
+---
+
+<MainLayout title="Inicio" description="GuppyLandia - Todo para tu acuario ideal. Peces, plantas acuáticas y productos de calidad en Tulcán.">
+
+	<!-- HERO -->
+	<section class="hero">
+		<!-- Imagen libre y gigante a la derecha -->
+		<div class="hero-image-bg">
+			<img src="/assets/hero_fish.png" alt="Acuario con pez betta y goldfish">
+		</div>
+
+		<!-- Contenedor del texto (frente a la imagen) -->
+		<div class="container hero-wrapper">
+			<div class="hero-text">
+				<h1>
+					Todo para tu<br>
+					<span>acuario ideal</span>
+				</h1>
+				<p>
+					Plantas naturales, peces saludables y productos premium
+					para crear un ecosistema acuático moderno y equilibrado.
+				</p>
+				<div class="hero-buttons">
+					<a href="/peces" class="btn btn-primary">Ver productos</a>
+					<a href="#categorias" class="btn btn-secondary">Explorar</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Onda SVG Decorativa al fondo que crea el corte redondo -->
+		<div class="hero-wave">
+			<svg viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+				<!-- Sombra azul claro superior -->
+				<path fill="#eaf6f7" d="M0,220 C320,320 800,380 1440,80 L1440,320 L0,320 Z"></path>
+				<!-- Onda blanca principal que recorta la imagen -->
+				<path fill="#ffffff" d="M0,240 C320,340 800,400 1440,100 L1440,320 L0,320 Z"></path>
+			</svg>
+		</div>
+	</section>
+
+	<!-- CATEGORÍAS -->
+	<section id="categorias" class="section">
+		<div class="container">
+			<div class="section-title">
+				<h2>Explora nuestras <span>categorías</span></h2>
+			</div>
+
+			<div class="categories">
+				<a href="/plantas" class="card">
+					<img src="https://images.unsplash.com/photo-1535591273668-578e31182c4f?q=80&w=1000&auto=format&fit=crop" alt="Plantas">
+					<h3>Plantas</h3>
+					<p>Plantas naturales para acuarios plantados de bajo y medio requerimiento.</p>
+				</a>
+
+				<a href="/peces" class="card">
+					<img src="https://images.unsplash.com/photo-1524704654690-b56c05c78a00?q=80&w=1000&auto=format&fit=crop" alt="Peces">
+					<h3>Peces</h3>
+					<p>Bettas, guppys, tetras, ramirezis y muchas especies más.</p>
+				</a>
+
+				<div class="card">
+					<img src="https://images.unsplash.com/photo-1581888227599-779811939961?q=80&w=1000&auto=format&fit=crop" alt="Abonos">
+					<h3>Abonos</h3>
+					<p>Fertilizantes líquidos y suplementos para un crecimiento saludable.</p>
+				</div>
+
+				<div class="card">
+					<img src="https://images.unsplash.com/photo-1560185127-6ed189bf02f4?q=80&w=1000&auto=format&fit=crop" alt="Equipos">
+					<h3>Equipos</h3>
+					<p>Filtros, iluminación, calentadores y accesorios premium.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- PRODUCTOS DESTACADOS -->
+	<section id="productos" class="section" style="padding-top:0;">
+		<div class="container">
+			<div class="section-title">
+				<h2>Productos <span>destacados</span></h2>
+			</div>
+
+			<div class="products">
+				{productosDestacados.map((prod) => (
+					<div class="product-card">
+						{prod.stock <= 3 ? (
+							<div class="stock-badge stock-low">¡Quedan {prod.stock}!</div>
+						) : (
+							<div class="stock-badge stock-ok">En stock</div>
+						)}
+						<img src={prod.imagen} alt={prod.nombre}>
+						<h4>{prod.nombre}</h4>
+						<div class="price">${prod.precio.toFixed(2)}</div>
+						<button class="product-btn">Agregar al carrito</button>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- INFO -->
+	<section class="section">
+		<div class="container">
+			<div class="info">
+				<div class="info-box">
+					<i class="fa-solid fa-truck-fast"></i>
+					<h4>Envíos rápidos</h4>
+					<p>Realizamos envíos seguros a todo el país.</p>
+				</div>
+				<div class="info-box">
+					<i class="fa-solid fa-shield-heart"></i>
+					<h4>Calidad garantizada</h4>
+					<p>Productos seleccionados para acuarios saludables.</p>
+				</div>
+				<div class="info-box">
+					<i class="fa-solid fa-comments"></i>
+					<h4>Asesoría experta</h4>
+					<p>Te ayudamos a crear el acuario perfecto.</p>
+				</div>
+				<div class="info-box">
+					<i class="fa-solid fa-fish"></i>
+					<h4>Peces saludables</h4>
+					<p>Cuidado profesional y especies de calidad.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- UBICACIÓN -->
+	<section id="ubicacion" class="section" style="padding-top:0;">
+		<div class="container">
+			<div class="section-title">
+				<h2>Ven a <span>visitarnos</span></h2>
+			</div>
+
+			<div class="ubicacion-grid">
+				<div class="ubicacion-cards">
+					<div class="ubicacion-card">
+						<i class="fa-solid fa-location-dot"></i>
+						<div>
+							<h4>Dirección</h4>
+							<p>Calle Rafael Arellano y Ayacucho<br>Tulcán, Ecuador</p>
+						</div>
+					</div>
+					<div class="ubicacion-card">
+						<i class="fa-regular fa-clock"></i>
+						<div>
+							<h4>Horarios</h4>
+							<p>Lun - Vie: 9:00 AM - 7:00 PM<br>Sáb: 10:00 AM - 4:00 PM</p>
+						</div>
+					</div>
+					<div class="ubicacion-card">
+						<i class="fa-solid fa-phone"></i>
+						<div>
+							<h4>Teléfono</h4>
+							<p>+593 999 999 999<br>guppylandia@gmail.com</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="map-container">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3989.415433587729!2d-77.72064602503502!3d0.8142470991778519!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMMKwNDgnNTEuMyJOIDc3wrA0MycwNS4xIlc!5e0!3m2!1ses!2sec!4v1768357311275!5m2!1ses!2sec" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</MainLayout>
