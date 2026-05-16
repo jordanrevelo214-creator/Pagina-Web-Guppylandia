@@ -3,10 +3,10 @@ import MainLayout from '../layouts/MainLayout.astro';
 
 // Datos de productos (luego vendrán de Cloudflare D1)
 const productosDestacados = [
-	{ nombre: "Betta Halfmoon", precio: 8.99, stock: 2, imagen: "https://cdn-icons-png.flaticon.com/512/616/616408.png" },
-	{ nombre: "Anubia Nana", precio: 5.99, stock: 15, imagen: "https://cdn-icons-png.flaticon.com/512/427/427735.png" },
-	{ nombre: "Filtro Interno", precio: 24.99, stock: 8, imagen: "https://cdn-icons-png.flaticon.com/512/1046/1046857.png" },
-	{ nombre: "Acondicionador", precio: 4.99, stock: 3, imagen: "https://cdn-icons-png.flaticon.com/512/2909/2909761.png" },
+	{ nombre: "Betta Halfmoon", precio: 8.99, stock: 2, imagen: "https://coburgaquarium.com.au/cdn/shop/products/halfmoonbettafancy.jpg?v=1681367457" },
+	{ nombre: "Anubia Nana", precio: 5.99, stock: 15, imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaYTCLhv8ebnw5RPGfc0zCJtzmoz_fBuyzxA&s" },
+	{ nombre: "Filtro Interno", precio: 24.99, stock: 8, imagen: "https://m.media-amazon.com/images/I/81RuHNpQNGL.jpg" },
+	{ nombre: "Acondicionador", precio: 4.99, stock: 3, imagen: "https://http2.mlstatic.com/D_NQ_NP_961645-MLA103658530479_012026-O.webp" },
 ];
 ---
 
@@ -57,25 +57,25 @@ const productosDestacados = [
 
 			<div class="categories">
 				<a href="/plantas" class="card">
-					<img src="https://images.unsplash.com/photo-1535591273668-578e31182c4f?q=80&w=1000&auto=format&fit=crop" alt="Plantas">
+					<img src="https://cdn.shopify.com/s/files/1/0230/7266/9773/files/2hrAquaristDSCF1962_2184a747-cbbc-4f31-b5fa-ffa8c38c4d14_1024x1024.jpg?v=1750430338" alt="Plantas">
 					<h3>Plantas</h3>
 					<p>Plantas naturales para acuarios plantados de bajo y medio requerimiento.</p>
 				</a>
 
 				<a href="/peces" class="card">
-					<img src="https://images.unsplash.com/photo-1524704654690-b56c05c78a00?q=80&w=1000&auto=format&fit=crop" alt="Peces">
+					<img src="https://i.redd.it/mh0jfjp3lxda1.jpg" alt="Peces">
 					<h3>Peces</h3>
 					<p>Bettas, guppys, tetras, ramirezis y muchas especies más.</p>
 				</a>
 
 				<div class="card">
-					<img src="https://images.unsplash.com/photo-1581888227599-779811939961?q=80&w=1000&auto=format&fit=crop" alt="Abonos">
+					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQczt84b-niIh8Tyc3QMDhufA7GCocRqHq0kA&s" alt="Abonos">
 					<h3>Abonos</h3>
 					<p>Fertilizantes líquidos y suplementos para un crecimiento saludable.</p>
 				</div>
 
 				<div class="card">
-					<img src="https://images.unsplash.com/photo-1560185127-6ed189bf02f4?q=80&w=1000&auto=format&fit=crop" alt="Equipos">
+					<img src="https://www.acuarioplantado.com/4176-medium_default/filtro-tidal-110-seachem.jpg" alt="Equipos">
 					<h3>Equipos</h3>
 					<p>Filtros, iluminación, calentadores y accesorios premium.</p>
 				</div>
@@ -101,7 +101,12 @@ const productosDestacados = [
 						<img src={prod.imagen} alt={prod.nombre}>
 						<h4>{prod.nombre}</h4>
 						<div class="price">${prod.precio.toFixed(2)}</div>
-						<button class="product-btn">Agregar al carrito</button>
+						<div class="qty-selector">
+							<button type="button" onclick="changeQty(this, -1)">−</button>
+							<span class="qty-value">1</span>
+							<button type="button" onclick="changeQty(this, 1)">+</button>
+						</div>
+						<button class="product-btn" onclick={`addToCart('${prod.nombre}', ${prod.precio}, getQtyFromCard(this), event)`}>Agregar al carrito</button>
 					</div>
 				))}
 			</div>

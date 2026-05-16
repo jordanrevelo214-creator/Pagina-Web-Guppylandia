@@ -33,9 +33,14 @@ const plantas = [
                         )}
                         <img src={planta.imagen} alt={planta.nombre} style="object-fit: cover; border-radius: 20px;">
                         <h4>{planta.nombre}</h4>
-                        <p style="color: #728697; margin-bottom: 12px; line-height: 1.6;">{planta.descripcion}</p>
+                        <p style="color: #728697; margin-bottom: 12px; line-height: 1.6; flex-grow: 1;">{planta.descripcion}</p>
                         <div class="price">${planta.precio.toFixed(2)}</div>
-                        <button class="product-btn">Agregar al carrito</button>
+                        <div class="qty-selector">
+                            <button type="button" onclick="changeQty(this, -1)">−</button>
+                            <span class="qty-value">1</span>
+                            <button type="button" onclick="changeQty(this, 1)">+</button>
+                        </div>
+                        <button class="product-btn" onclick={`addToCart('${planta.nombre}', ${planta.precio}, getQtyFromCard(this), event)`}>Agregar al carrito</button>
                     </div>
                 ))}
             </div>
