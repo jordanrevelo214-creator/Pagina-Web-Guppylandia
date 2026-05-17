@@ -1,15 +1,15 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import { env } from 'cloudflare:workers';
 
-const productos = [
-    { nombre: "Prime Seachem 100ml", precio: 10.00, stock: 15, descripcion: "Su función principal es neutralizar el cloro y la cloramina, además de desintoxicar temporalmente el amoníaco, nitritos y nitratos, haciéndolos seguros para los peces mientras el filtro biológico los procesa", imagen: "https://simplyfish.store/cdn/shop/files/LA02_e1879193-2de5-496c-b31c-154889310725_1024x.png?v=1738564426" },
-    { nombre: "Algae away Azoo", precio: 10.00, stock: 2, descripcion: "Es un producto eficaz contra las algas filamentosas en acuarios plantados. Se aplica de manera diluida.", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIWwrPeMDL0lkqic7v8mx8vTfTma47hjA0bw&s" },
-    { nombre: "Flourish Seachem 100ml", precio: 10.00, stock: 50, descripcion: "Es una fuente integral de micronutrientes diseñada para promover el crecimiento exuberante y la coloración vibrante de las plantas acuáticas.", imagen: "https://i0.wp.com/atlantisacuario.com/wp-content/uploads/2020/12/Atlantis-Acuario-Seachem-Florish-250ml.jpg?fit=800%2C800&ssl=1" },
-    { nombre: "Plant Premium Azoo", precio: 10.00, stock: 3, descripcion: "Es un abono completo y balanceado para plantas acuáticas que proporciona todos los nutrientes esenciales para su crecimiento y desarrollo.", imagen: "https://azooeurope.com/wp-content/uploads/azoo_plus_plant_premium_01.jpg" },
-];
+// Leer los productos desde la base de datos D1
+const db = env.DB;
+const { results: productos } = await db.prepare(
+    'SELECT * FROM productos WHERE categoria = ? AND activo = 1 ORDER BY nombre'
+).bind('productos').all();
 ---
 
-<MainLayout title="Catálogo de Productos para el agua de tu Acuario" description="Explora nuestra colección de productos para el agua de tu acuario en GuppyLandia, Tulcán.">
+<MainLayout title="Catálogo de Productos" description="Explora nuestra colección de productos para el agua de tu acuario en GuppyLandia, Tulcán.">
 
     <!-- Header de Página -->
     <section class="section" style="padding-bottom: 0;">
@@ -24,7 +24,7 @@ const productos = [
     <section class="section">
         <div class="container">
             <div class="products">
-                {productos.map((producto) => (
+                {productos.map((producto: any) => (
                     <div class="product-card">
                         {producto.stock <= 3 ? (
                             <div class="stock-badge stock-low">¡Quedan {producto.stock}!</div>
@@ -33,8 +33,8 @@ const productos = [
                         )}
                         <img src={producto.imagen} alt={producto.nombre} style="object-fit: cover; border-radius: 20px;">
                         <h4>{producto.nombre}</h4>
-                        <p style="color: #728697; margin-bottom: 12px; line-height: 1.6; flex-grow: 1">{producto.descripcion}</p>
-                        <div class="price">${producto.precio.toFixed(2)}</div>
+                        <p style="color: #728697; margin-bottom: 12px; line-height: 1.6; flex-grow: 1;">{producto.descripcion}</p>
+                        <div class="price">${Number(producto.precio).toFixed(2)}</div>
                         <div class="qty-selector">
                             <button type="button" onclick="changeQty(this, -1)">−</button>
                             <span class="qty-value">1</span>

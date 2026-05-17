@@ -1,13 +1,12 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import { env } from 'cloudflare:workers';
 
-// Datos de productos (luego vendrán de Cloudflare D1)
-const productosDestacados = [
-	{ nombre: "Betta Halfmoon", precio: 8.99, stock: 2, imagen: "https://coburgaquarium.com.au/cdn/shop/products/halfmoonbettafancy.jpg?v=1681367457" },
-	{ nombre: "Anubia Nana", precio: 5.99, stock: 15, imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaYTCLhv8ebnw5RPGfc0zCJtzmoz_fBuyzxA&s" },
-	{ nombre: "Filtro Interno", precio: 24.99, stock: 8, imagen: "https://m.media-amazon.com/images/I/81RuHNpQNGL.jpg" },
-	{ nombre: "Acondicionador", precio: 4.99, stock: 3, imagen: "https://http2.mlstatic.com/D_NQ_NP_961645-MLA103658530479_012026-O.webp" },
-];
+// Leer productos destacados desde D1 (los 4 con menor stock = más urgentes)
+const db = env.DB;
+const { results: productosDestacados } = await db.prepare(
+	'SELECT * FROM productos WHERE activo = 1 ORDER BY stock ASC LIMIT 4'
+).all();
 ---
 
 <MainLayout title="Inicio" description="GuppyLandia - Todo para tu acuario ideal. Peces, plantas acuáticas y productos de calidad en Tulcán.">
@@ -100,7 +99,7 @@ const productosDestacados = [
 						)}
 						<img src={prod.imagen} alt={prod.nombre}>
 						<h4>{prod.nombre}</h4>
-						<div class="price">${prod.precio.toFixed(2)}</div>
+						<div class="price">${Number(prod.precio).toFixed(2)}</div>
 						<div class="qty-selector">
 							<button type="button" onclick="changeQty(this, -1)">−</button>
 							<span class="qty-value">1</span>

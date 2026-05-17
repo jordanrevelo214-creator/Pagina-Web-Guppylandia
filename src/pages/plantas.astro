@@ -1,12 +1,12 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import { env } from 'cloudflare:workers';
 
-const plantas = [
-    { nombre: "Cryptocoryne wendtii 'Green'", precio: 3.50, stock: 15, descripcion: "Plantas de acuario de fácil cuidado y crecimiento lento.", imagen: "https://i.etsystatic.com/22016538/r/il/0f365a/2552530212/il_794xN.2552530212_1voc.jpg" },
-    { nombre: "Lysmachia nummularia 'Aurea'", precio: 12.00, stock: 2, descripcion: "Una planta terrestre que se adapta muy bien a la acuariofilia.", imagen: "https://www.lumalightstudio.com.mx/cdn/shop/products/Lysimachia_nummularia_aurea_3_1200x_78469105-c148-40a4-abd5-004d39afe887_720x.jpg?v=1638819012" },
-    { nombre: "Cryptocoryne pontederiifolia", precio: 1.50, stock: 50, descripcion: "Una planta con hojas grandes y un tallo robusto, ideal para acuarios medianos y grandes.", imagen: "https://d2seqvvyy3b8p2.cloudfront.net/66e4a6c35ca20c625d8b3ea78188f19b.jpg" },
-    { nombre: "Hygrophila polysperma", precio: 2.50, stock: 3, descripcion: "Su belleza y color cambia dependiendo de la luz. Crecimiento rápido.", imagen: "https://aquariumbreeder.com/wp-content/uploads/2024/01/Hygrophila-Polysperma-Care-Guide-%E2%80%93-Planting-Growing-and-Propagation.jpg" },
-];
+// Leer las plantas desde la base de datos D1
+const db = env.DB;
+const { results: plantas } = await db.prepare(
+    'SELECT * FROM productos WHERE categoria = ? AND activo = 1 ORDER BY nombre'
+).bind('plantas').all();
 ---
 
 <MainLayout title="Catálogo de Plantas" description="Explora nuestra colección de plantas acuáticas en GuppyLandia, Tulcán.">
@@ -24,7 +24,7 @@ const plantas = [
     <section class="section">
         <div class="container">
             <div class="products">
-                {plantas.map((planta) => (
+                {plantas.map((planta: any) => (
                     <div class="product-card">
                         {planta.stock <= 3 ? (
                             <div class="stock-badge stock-low">¡Quedan {planta.stock}!</div>
@@ -34,7 +34,7 @@ const plantas = [
                         <img src={planta.imagen} alt={planta.nombre} style="object-fit: cover; border-radius: 20px;">
                         <h4>{planta.nombre}</h4>
                         <p style="color: #728697; margin-bottom: 12px; line-height: 1.6; flex-grow: 1;">{planta.descripcion}</p>
-                        <div class="price">${planta.precio.toFixed(2)}</div>
+                        <div class="price">${Number(planta.precio).toFixed(2)}</div>
                         <div class="qty-selector">
                             <button type="button" onclick="changeQty(this, -1)">−</button>
                             <span class="qty-value">1</span>

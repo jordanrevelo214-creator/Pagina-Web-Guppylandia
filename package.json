@@ -8,12 +8,18 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "wrangler pages dev dist",
+    "db:init": "wrangler d1 execute guppylandia-db --local --file=migrations/0001_init.sql",
     "astro": "astro"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.3.3",
+    "jose": "^6.2.3",
     "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "@astrojs/cloudflare": "^13.5.1",
+    "wrangler": "^4.92.0"
   }
 }

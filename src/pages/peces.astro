@@ -1,12 +1,12 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import { env } from 'cloudflare:workers';
 
-const peces = [
-    { nombre: "Guppy Cobra", precio: 3.50, stock: 15, descripcion: "Coloración vibrante con patrón cobra único.", imagen: "https://flipaquatics.com/cdn/shop/files/FA-Fish-GreenCobraGuppy_Male-M1W324_5000x.jpg?v=1762530390" },
-    { nombre: "Betta Dragon Red", precio: 12.00, stock: 2, descripcion: "Ejemplar de exhibición con escamas dragón.", imagen: "https://tropicflow.com/cdn/shop/files/IMG-4215.jpg?v=1769396180&width=713" },
-    { nombre: "Tetra Neón", precio: 1.50, stock: 50, descripcion: "El clásico cardumen brillante para cualquier acuario.", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwX3E7CymkCgTym4v79K3gVvWLmx59aqqLbg&s" },
-    { nombre: "Corydora Albina", precio: 4.00, stock: 3, descripcion: "Limpiador de fondo pacífico y llamativo.", imagen: "https://aquaorinoco.com/17069/corydoras-paleatus-albina.jpg" },
-];
+// Leer los peces desde la base de datos D1
+const db = env.DB;
+const { results: peces } = await db.prepare(
+    'SELECT * FROM productos WHERE categoria = ? AND activo = 1 ORDER BY nombre'
+).bind('peces').all();
 ---
 
 <MainLayout title="Catálogo de Peces" description="Explora nuestra colección de peces exóticos en GuppyLandia, Tulcán.">
@@ -24,7 +24,7 @@ const peces = [
     <section class="section">
         <div class="container">
             <div class="products">
-                {peces.map((pez) => (
+                {peces.map((pez: any) => (
                     <div class="product-card">
                         {pez.stock <= 3 ? (
                             <div class="stock-badge stock-low">¡Quedan {pez.stock}!</div>
@@ -34,7 +34,7 @@ const peces = [
                         <img src={pez.imagen} alt={pez.nombre} style="object-fit: cover; border-radius: 20px;">
                         <h4>{pez.nombre}</h4>
                         <p style="color: #728697; margin-bottom: 12px; line-height: 1.6; flex-grow: 1;">{pez.descripcion}</p>
-                        <div class="price">${pez.precio.toFixed(2)}</div>
+                        <div class="price">${Number(pez.precio).toFixed(2)}</div>
                         <div class="qty-selector">
                             <button type="button" onclick="changeQty(this, -1)">−</button>
                             <span class="qty-value">1</span>

@@ -1,6 +1,5 @@
 ---
 import '../styles/global.css';
-import { ClientRouter } from 'astro:transitions';
 
 interface Props {
 	title: string;
@@ -23,12 +22,11 @@ const { title, description = "GuppyLandia - Todo para tu acuario ideal" } = Astr
 		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 		
-		<ClientRouter />
 	</head>
 	<body>
 		
 		<!-- NAVBAR -->
-		<header transition:persist>
+		<header>
 			<div class="container navbar">
 				<a href="/" class="logo">
 					<img src="/assets/logo.png" alt="GuppyLandia">
@@ -46,7 +44,7 @@ const { title, description = "GuppyLandia - Todo para tu acuario ideal" } = Astr
 
 				<div class="nav-icons">
 					<i class="fa-solid fa-magnifying-glass"></i>
-					<i class="fa-regular fa-user"></i>
+					<a href="/admin" style="color: inherit;"><i class="fa-regular fa-user"></i></a>
 					<div class="cart-icon-wrapper" onclick="toggleCart()">
 						<i class="fa-solid fa-cart-shopping"></i>
 						<span id="cart-count" class="cart-badge">0</span>
@@ -120,7 +118,7 @@ const { title, description = "GuppyLandia - Todo para tu acuario ideal" } = Astr
 			</div>
 		</footer>
 
-		<!-- Overlay del carrito (fondo oscuro) -->
+		<!-- Overlay del carrito -->
 		<div id="cart-overlay" class="cart-overlay" onclick="toggleCart()"></div>
 
 		<!-- Panel lateral del carrito -->
@@ -131,11 +129,7 @@ const { title, description = "GuppyLandia - Todo para tu acuario ideal" } = Astr
 					<i class="fa-solid fa-xmark"></i>
 				</button>
 			</div>
-
-			<div id="cart-items" class="cart-items">
-				<!-- Los items se renderizan dinámicamente desde cart.js -->
-			</div>
-
+			<div id="cart-items" class="cart-items"></div>
 			<div id="cart-footer" class="cart-footer">
 				<div class="cart-total">
 					<span>Total:</span>
@@ -156,7 +150,7 @@ const { title, description = "GuppyLandia - Todo para tu acuario ideal" } = Astr
 			<span>Enviar pedido</span>
 		</button>
 
-		<script src="/js/cart.js" is:inline></script>
+		<script is:inline src="/js/cart.js"></script>
 		<script is:inline>
 			document.getElementById('menu-toggle')?.addEventListener('click', () => {
 				document.getElementById('mobile-menu')?.classList.toggle('active');
