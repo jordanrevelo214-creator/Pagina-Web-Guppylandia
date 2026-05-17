@@ -2,10 +2,10 @@
 import MainLayout from '../layouts/MainLayout.astro';
 import { env } from 'cloudflare:workers';
 
-// Leer productos destacados desde D1 (los 4 con menor stock = más urgentes)
+// Leer productos destacados desde D1 (los 4 destacados más recientes)
 const db = env.DB;
 const { results: productosDestacados } = await db.prepare(
-	'SELECT * FROM productos WHERE activo = 1 ORDER BY stock ASC LIMIT 4'
+	'SELECT * FROM productos WHERE activo = 1 AND destacado = 1 ORDER BY created_at DESC LIMIT 4'
 ).all();
 ---
 
@@ -67,17 +67,17 @@ const { results: productosDestacados } = await db.prepare(
 					<p>Bettas, guppys, tetras, ramirezis y muchas especies más.</p>
 				</a>
 
-				<div class="card">
+				<a href="/productos" class="card">
 					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQczt84b-niIh8Tyc3QMDhufA7GCocRqHq0kA&s" alt="Abonos">
 					<h3>Abonos</h3>
 					<p>Fertilizantes líquidos y suplementos para un crecimiento saludable.</p>
-				</div>
+				</a>
 
-				<div class="card">
+				<a href="/equipos" class="card">
 					<img src="https://www.acuarioplantado.com/4176-medium_default/filtro-tidal-110-seachem.jpg" alt="Equipos">
 					<h3>Equipos</h3>
 					<p>Filtros, iluminación, calentadores y accesorios premium.</p>
-				</div>
+				</a>
 			</div>
 		</div>
 	</section>
@@ -117,11 +117,6 @@ const { results: productosDestacados } = await db.prepare(
 		<div class="container">
 			<div class="info">
 				<div class="info-box">
-					<i class="fa-solid fa-truck-fast"></i>
-					<h4>Envíos rápidos</h4>
-					<p>Realizamos envíos seguros a todo el país.</p>
-				</div>
-				<div class="info-box">
 					<i class="fa-solid fa-shield-heart"></i>
 					<h4>Calidad garantizada</h4>
 					<p>Productos seleccionados para acuarios saludables.</p>
@@ -154,6 +149,9 @@ const { results: productosDestacados } = await db.prepare(
 						<div>
 							<h4>Dirección</h4>
 							<p>Calle Rafael Arellano y Ayacucho<br>Tulcán, Ecuador</p>
+							<a href="https://www.google.com/maps/dir/?api=1&destination=0.814247,-77.720646" target="_blank" class="btn btn-secondary" style="padding: 8px 16px; margin-top: 10px; font-size: 12px; border-radius: 12px; display: inline-flex; align-items: center; gap: 6px; height: auto;">
+								<i class="fa-solid fa-route"></i> ¿Cómo llegar? (GPS)
+							</a>
 						</div>
 					</div>
 					<div class="ubicacion-card">
@@ -164,10 +162,14 @@ const { results: productosDestacados } = await db.prepare(
 						</div>
 					</div>
 					<div class="ubicacion-card">
-						<i class="fa-solid fa-phone"></i>
+						<i class="fa-brands fa-whatsapp" style="color: #25d366; font-size: 28px;"></i>
 						<div>
-							<h4>Teléfono</h4>
-							<p>+593 999 999 999<br>guppylandia@gmail.com</p>
+							<h4>WhatsApp y Contacto</h4>
+							<p>
+								<a href="https://wa.me/593939556268" target="_blank" style="color: inherit; font-weight: 600;">+593 939 556 268</a>
+								<br>
+								<a href="mailto:guppylandia@gmail.com" style="color: inherit;">guppylandia@gmail.com</a>
+							</p>
 						</div>
 					</div>
 				</div>

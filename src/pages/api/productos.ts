@@ -57,11 +57,11 @@ export const POST: APIRoute = async ({ request }) => {
     try {
         const db = env.DB;
         const body = await request.json();
-        const { nombre, precio, stock, descripcion, imagen, categoria } = body;
+        const { nombre, precio, stock, descripcion, imagen, categoria, destacado } = body;
 
         const result = await db.prepare(
-            'INSERT INTO productos (nombre, precio, stock, descripcion, imagen, categoria) VALUES (?, ?, ?, ?, ?, ?)'
-        ).bind(nombre, precio, stock || 0, descripcion || '', imagen || '', categoria).run();
+            'INSERT INTO productos (nombre, precio, stock, descripcion, imagen, categoria, destacado) VALUES (?, ?, ?, ?, ?, ?, ?)'
+        ).bind(nombre, precio, stock || 0, descripcion || '', imagen || '', categoria, destacado ? 1 : 0).run();
 
         return new Response(JSON.stringify({ success: true, id: result.meta.last_row_id }), { status: 201 });
     } catch (error) {

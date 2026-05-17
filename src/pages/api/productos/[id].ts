@@ -30,12 +30,12 @@ export const PUT: APIRoute = async ({ params, request }) => {
         const db = env.DB;
         const id = params.id;
         const body = await request.json();
-        const { nombre, precio, stock, descripcion, imagen, categoria, activo } = body;
+        const { nombre, precio, stock, descripcion, imagen, categoria, activo, destacado } = body;
 
         await db.prepare(
-            'UPDATE productos SET nombre = ?, precio = ?, stock = ?, descripcion = ?, imagen = ?, categoria = ?, activo = ? WHERE id = ?'
+            'UPDATE productos SET nombre = ?, precio = ?, stock = ?, descripcion = ?, imagen = ?, categoria = ?, activo = ?, destacado = ? WHERE id = ?'
         ).bind(
-            nombre, precio, stock, descripcion || '', imagen || '', categoria, activo ?? 1, id
+            nombre, precio, stock, descripcion || '', imagen || '', categoria, activo ?? 1, destacado ? 1 : 0, id
         ).run();
 
         return new Response(JSON.stringify({ success: true }), { status: 200 });

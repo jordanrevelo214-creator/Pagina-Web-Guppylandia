@@ -183,16 +183,24 @@ function sendToWhatsApp() {
     }
 
     let total = 0;
-    let message = "🐠 *Pedido de GuppyLandia*\n\n";
+    let message = `*=================================*\n`;
+    message += `  >>>  *NUEVO PEDIDO - GUPPYLANDIA*  <<<\n`;
+    message += `*=================================*\n\n`;
+    message += `*Detalle del Pedido:*\n`;
+    message += `-----------------------------------------\n`;
 
-    cart.forEach((item, index) => {
+    cart.forEach((item) => {
         const subtotal = item.precio * item.cantidad;
         total += subtotal;
-        message += `${index + 1}. *${item.nombre}* x${item.cantidad} — $${subtotal.toFixed(2)}\n`;
+        message += `• *${item.nombre}*\n`;
+        message += `  Cant: ${item.cantidad}   |   Subtotal: $${subtotal.toFixed(2)}\n\n`;
     });
 
-    message += `\n💰 *Total: $${total.toFixed(2)}*`;
-    message += `\n\n¡Gracias! Espero su confirmación 🙏`;
+    message += `-----------------------------------------\n`;
+    message += `*TOTAL A PAGAR: $${total.toFixed(2)}*\n`;
+    message += `*=================================*\n\n`;
+    message += `* ¡Hola! Vengo de la página web y me gustaría confirmar este pedido.\n`;
+    message += `* Quedo atento a su respuesta para coordinar el pago y envío.`;
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");

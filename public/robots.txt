@@ -1,0 +1,20 @@
+# ============================================
+# GUPPYLANDIA - Archivo robots.txt
+# Control de rastreo para motores de búsqueda (Google, Bing, etc.)
+# ============================================
+
+User-agent: *
+
+# Páginas que sí queremos que aparezcan en Google
+Allow: /
+Allow: /peces
+Allow: /plantas
+Allow: /productos
+Allow: /equipos
+
+# Páginas privadas que NO deben aparecer en Google
+Disallow: /admin
+Disallow: /api/
+
+# Enlace directo al mapa del sitio
+Sitemap: https://guppylandia.com/sitemap.xml

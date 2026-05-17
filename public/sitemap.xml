@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ============================================
+     GUPPYLANDIA - Sitemap XML
+     Mapa estructurado para ayudar a Google a indexar la tienda
+     ============================================ -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <!-- Página de Inicio (Landing Page) -->
+  <url>
+    <loc>https://guppylandia.com/</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Catálogo de Peces -->
+  <url>
+    <loc>https://guppylandia.com/peces</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Catálogo de Plantas -->
+  <url>
+    <loc>https://guppylandia.com/plantas</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Catálogo de Abonos / Productos -->
+  <url>
+    <loc>https://guppylandia.com/productos</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Catálogo de Equipos -->
+  <url>
+    <loc>https://guppylandia.com/equipos</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>

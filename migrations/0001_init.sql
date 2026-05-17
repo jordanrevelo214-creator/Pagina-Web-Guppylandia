@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS productos (
     imagen TEXT,
     categoria TEXT NOT NULL,  -- 'peces', 'plantas', 'productos'
     activo INTEGER NOT NULL DEFAULT 1,  -- 1 = visible, 0 = oculto
+    destacado INTEGER NOT NULL DEFAULT 0, -- 1 = destacado en inicio, 0 = normal
     created_at TEXT DEFAULT (datetime('now'))
 );
 

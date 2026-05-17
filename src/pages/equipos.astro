@@ -2,20 +2,20 @@
 import MainLayout from '../layouts/MainLayout.astro';
 import { env } from 'cloudflare:workers';
 
-// Leer los productos desde la base de datos D1
+// Leer los equipos desde la base de datos D1
 const db = env.DB;
-const { results: productos } = await db.prepare(
+const { results: equipos } = await db.prepare(
     'SELECT * FROM productos WHERE categoria = ? AND activo = 1 ORDER BY nombre'
-).bind('productos').all();
+).bind('equipos').all();
 ---
 
-<MainLayout title="Catálogo de Productos" description="Explora nuestra colección de productos para el agua de tu acuario en GuppyLandia, Tulcán.">
+<MainLayout title="Catálogo de Equipos" description="Explora nuestra colección de equipos para el agua de tu acuario en GuppyLandia, Tulcán.">
 
     <!-- Header de Página -->
     <section class="section" style="padding-bottom: 0;">
         <div class="container">
             <div class="section-title">
-                <h2>Catálogo de <span>Productos para el agua de tu Acuario</span></h2>
+                <h2>Catálogo de <span>Equipos para tu Acuario</span></h2>
             </div>
         </div>
     </section>
@@ -24,23 +24,23 @@ const { results: productos } = await db.prepare(
     <section class="section">
         <div class="container">
             <div class="products">
-                {productos.map((producto: any) => (
+                {equipos.map((equipo: any) => (
                     <div class="product-card">
-                        {producto.stock <= 3 ? (
-                            <div class="stock-badge stock-low">¡Quedan {producto.stock}!</div>
+                        {equipo.stock <= 3 ? (
+                            <div class="stock-badge stock-low">¡Quedan {equipo.stock}!</div>
                         ) : (
                             <div class="stock-badge stock-ok">En stock</div>
                         )}
-                        <img src={producto.imagen} alt={producto.nombre} style="object-fit: contain; border-radius: 20px;">
-                        <h4>{producto.nombre}</h4>
-                        <p style="color: #728697; margin-bottom: 12px; line-height: 1.6; flex-grow: 1;">{producto.descripcion}</p>
-                        <div class="price">${Number(producto.precio).toFixed(2)}</div>
+                        <img src={equipo.imagen} alt={equipo.nombre} style="object-fit: contain; border-radius: 20px;">
+                        <h4>{equipo.nombre}</h4>
+                        <p style="color: #728697; margin-bottom: 12px; line-height: 1.6; flex-grow: 1;">{equipo.descripcion}</p>
+                        <div class="price">${Number(equipo.precio).toFixed(2)}</div>
                         <div class="qty-selector">
                             <button type="button" onclick="changeQty(this, -1)">−</button>
                             <span class="qty-value">1</span>
                             <button type="button" onclick="changeQty(this, 1)">+</button>
                         </div>
-                        <button class="product-btn" onclick={`addToCart('${producto.nombre}', ${producto.precio}, getQtyFromCard(this), event)`}>Agregar al carrito</button>
+                        <button class="product-btn" onclick={`addToCart('${equipo.nombre}', ${equipo.precio}, getQtyFromCard(this), event)`}>Agregar al carrito</button>
                     </div>
                 ))}
             </div>
