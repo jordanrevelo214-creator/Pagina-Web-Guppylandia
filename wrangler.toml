@@ -5,4 +5,4 @@ compatibility_date = "2025-01-01"
 [[d1_databases]]
 binding = "DB"                    # Nombre con el que accedemos a la BD en el código
 database_name = "guppylandia-db"  # Nombre de la BD en Cloudflare
-database_id = "local"             # Se reemplaza cuando se crea en producción
+database_id = "cf318de9-b342-482a-a9f6-654409a642fc"             # Se reemplaza cuando se crea en producción
