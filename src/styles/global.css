@@ -597,17 +597,25 @@ footer p {
 /* ================= RESPONSIVE ================= */
 
 @media (max-width: 1000px) {
+  .hero {
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 40px;
+  }
   .hero-wrapper {
     grid-template-columns: 1fr;
+    order: 1;
+    margin-bottom: 20px;
   }
   .hero-image-bg {
     position: relative;
     width: 100%;
     right: 0;
-    height: 400px;
+    height: 350px;
+    order: 2;
     mask-image: linear-gradient(to top, transparent 0%, black 20%);
     -webkit-mask-image: linear-gradient(to top, transparent 0%, black 20%);
-    margin-top: 40px;
+    margin-top: 20px;
   }
   .hero-text {
     text-align: center;
@@ -634,10 +642,10 @@ footer p {
 
 @media (max-width: 700px) {
   .hero-text h1 {
-    font-size: 42px;
+    font-size: 38px;
   }
   .hero-text h1 span {
-    font-size: 52px;
+    font-size: 46px;
   }
   .section-title h2 {
     font-size: 32px;
