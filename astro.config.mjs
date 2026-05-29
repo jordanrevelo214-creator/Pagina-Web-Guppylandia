@@ -5,7 +5,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://pagina-web-guppylandia.jordanrevelo214.workers.dev',
+  site: 'https://guppylandia.dpdns.org',
   output: 'server',
 
   adapter: cloudflare({
